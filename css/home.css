@@ -1,0 +1,239 @@
+*{
+	padding: 0px;
+	margin: 0px;
+}
+
+@font-face { font-family: Quicksand; src: url('fonts/Quicksand_Light.otf'); }
+
+body{
+	background-image: url('pin_white.png');
+}
+
+header h1{
+	display: inline;
+	font: 36pt Quicksand;
+}
+
+#head-wrap{
+	margin: 0px auto;
+	padding: 20px 20px;
+	width: 1200px;
+}
+
+header ul{
+	display: inline;
+	margin: 0px 200px;
+	padding: 5px 0px;
+	list-style: none;
+	text-align: center;
+	border-bottom: 1pt dotted #ddd;
+}
+
+header ul li{
+	display: inline-block;
+	margin: 0px;
+	padding: 0px 20px;
+	width: 100px;
+	font: 11pt Helvetica;
+	color: #3299bb;
+	border-bottom: none;
+	text-shadow: none;
+}
+
+header ul li:hover{
+	color: black;
+	cursor: pointer;
+}
+
+#cont-wrap{
+	margin: 0px auto;
+	width: 1200px;
+}
+
+nav{
+	display: inline-block;
+	float: left;
+	margin: 80px 0px;
+}
+
+ul{
+	list-style: none;
+	text-align: right;
+}
+
+nav ul li{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 100px;
+	padding: 4px;
+	width: 200px;
+	font: 16pt Helvetica;
+	border-bottom:2px solid transparent;
+	text-shadow: -1px 1px 3px #eee;
+}
+
+nav ul li:hover{
+	border-bottom:2px solid #aaa;
+	cursor: pointer;
+	-webkit-transition: border-bottom .50s linear;
+	-moz-transition: border-bottom .50s linear;
+   transition: border-bottom .50s linear;
+}
+
+nav ul li.active{
+	background: #3299BB;
+	color: black;
+	border-bottom:2px solid transparent;
+	text-shadow: none;
+	box-shadow: -1px 1px 3px #000;
+}
+
+a{
+	text-decoration: none;
+	color: inherit;
+}
+
+a:visited{
+	text-decoration: none;
+}
+
+content{
+	display: block;
+	float: left;
+	margin-top: 80px;
+	margin-bottom: 20px;
+	margin-left: 40px;
+	width: 650px;
+	border-radius: 0px 7px 7px 7px;
+	font: 12pt Helvetica;
+	color: #777;
+}
+
+content p{
+	line-height: 2;
+}
+
+#alex{
+	float: right;
+	margin: 10px;
+}
+
+section{
+	font: 11pt Helvetica;
+	width: 750px;
+	border-bottom: 2pt dotted #3299bb;
+	overflow-x: hidden;
+	padding-bottom: 10px;
+}
+
+.sec-bod{
+	line-height: 2;
+}
+
+section h1{
+	font-size: 14pt;
+	color: #3299BB;
+}
+
+section h2{
+	font-size: 12pt;
+}
+
+ul.port{
+	text-align: left;
+	margin-top: -30px;
+	width: 780px;
+	border-bottom: 2px dotted #ddd;
+}
+
+.img-cont{
+	float: left;
+	width: 180px;
+	height: 180px;
+	margin: 30px;
+	padding: 10px;
+	background: #ddd;
+	box-shadow: -1px 1px 3px #000;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.img-cont:hover .portname{
+	height: 25px;
+}
+
+#headcam{
+	height: 180px;
+	width: 180px;
+	background-image: url('../images/headcam.png');
+}
+
+#imm{
+height: 180px;
+	width: 180px;
+	background-image: url('../images/church.png');
+}
+
+#husker{
+height: 180px;
+	width: 180px;
+	background-image: url('../images/skers.png');
+}
+
+.portname{
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	height: 0px;
+	width: 200px;
+	background: black;
+	color: white;
+	
+	-moz-transition: height 0.5s ease;
+	-webkit-transition: height 0.5s ease;
+	transition: height 0.5s ease;
+}
+
+.portname p{
+	line-height: 1;
+	padding: 5px;
+}
+
+.clearme{
+	clear: both;
+}
+
+.posted{
+	padding: 5px 0px;
+	width: 400px;
+	border-bottom: 1pt dotted #ddd;
+}
+
+.post-h1{
+	font-size: 11pt;
+}
+
+.post-h2{
+	font-size: 9pt;
+	font-weight: normal;
+}
+
+.post-p{
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+.postButt{
+	padding: 2px 6px;
+	background: #3299BB;
+}
+
+#poster-name{
+	width: 200px;
+}
+
+#poster-post{
+	width: 400px;
+	height: 200px;
+}

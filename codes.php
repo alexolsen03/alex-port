@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+   
+<?
+	$mysql_host='localhost';
+	$mysql_username='root';
+	$mysql_password='code*03';
+	$mysql_db='alexblog';
+
+	/*
+	$mysql_host='localhost';
+	$mysql_username='rtowro_root';
+	$mysql_password='code*03';
+	$mysql_db='rtowro_alexblog';
+	*/
+
+	if (!mysql_connect($mysql_host, $mysql_username, $mysql_password) || !mysql_select_db($mysql_db)){
+		die('Could not connect');
+	}
+	
+	if($query = mysql_query("SELECT name, comment, timestamp FROM php_blog_comments")){
+		while($rows = mysql_fetch_assoc($query)){
+			$name = $rows['name'];
+			$post = $rows['comment'];
+			$date = $rows['timestamp'];
+			
+		}
+	}else{
+		echo mysql_error();
+	}
+?>
+<html>
+<head>
+	<title>Alex's Blog</title>
+
+	<link rel="stylesheet" href="css/home.css"></link>
+	<link rel="stylesheet" href="css/fonts/Font-Awesome/css/font-awesome.css"></link>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script type='text/javascript' src='js/jTruncate.js'></script>
+	<script type='text/javascript' src='js/codes.js'></script>
+
+</head>
+<body>
+	<header>
+		<div id='head-wrap'>
+			<h1>Alex Olsen</h1>
+			<ul class='headUl'>
+				<li><a href='http://www.facebook.com/alex.olsen.18'><i class="icon-facebook-sign"></i>Facebook</a></li>
+				<li><a href='https://github.com/alexolsen03'><i class="icon-github-sign"></i>Github</a></li>
+				<li><a href='http://kr.linkedin.com/pub/alex-olsen/4a/898/17'><i class="icon-linkedin-sign"></i>LinkedIn</a></li>
+				<li><a href='AlexOlsenResume.pdf'><i class="icon-file"></i>Resume</a></li>
+			</ul>
+		</div>
+	</header>
+	<div id='cont-wrap'>
+		<nav>
+			<ul>
+				<li id='about'><a href='index.html'>About</a></li>
+				<li id='port'><a href='port.html'>Portfolio</a></li>
+				<li id='codes'><a href='codes.html'>Codes</a></li>
+			</ul>
+		</nav>
+		<content>
+			<div class='clearme'></div>
+			<section class='meh' id='projects'>
+				<div class='apost'>
+					<h1>Node.js Web Chat Application</h1>
+					<h2>April 8, 2012</h2>
+					<div class='sec-bod'>
+						So I had come to a standstill on my primary project headcam.org, and I wanted to learn something new.  I had the desire to learn about networking in the browser.  While researching what might be a good way to go about this, I ran into Node.js.  I thought this could be a great way to learn something new and improve my javascript a bit.  Now, the problem was, what should I make.  I decided a simple chat application would be the easiest, and I hope to share with you what I learned.
+						<br><br>
+						First let's look at how the project is set up
+						<img src='posts/pics/post1/1.png'></img><img src='posts/pics/post1/2.png'></img><img src='posts/pics/post1/3.png'></img>
+						
+						<br><br>
+						I'd like to not ethat this tutorial is only going to cover how to set up the server and set up the client code.  You can download/view the html/css code on my Git page.  Also, you will need the express framework module and the socket.io module.
+						<br><br>
+						<h2>Server.js</h2>
+						<br>
+						Alright, let's start with the server code.  First we must require two modules - the express module and the socket.io module.  We assign each of these to a variable.  We create an instance of the HTTP Server and store it in the app variable.  We then create an instance of the socket and have it listen to that server.  Finally we set up the server to open up on a port.  In this case I chose port 4000.<br>
+						<img src='posts/pics/post1/4.png'></img>
+						<br><br>
+						
+						Next, we tell our server to use our static file with the 'express.static()' method.  We should pass the directory of where our index.html file is located.  In this case, we stored it in the html folder.  After that we are going to go ahead and create an array to hold the users that connect to our server - however we won't use that for a while.
+						<br><img src='posts/pics/post1/5.png'></img>
+						<br><br>
+						Now it's time to write our server-side callbacks.  When these events are fired client-side, the server will execute these callbacks.  First we need to write the function for when a connection occurs.  Then I'm going to make a callback called 'join'.  When 'join' occurs, we're going to do a few things.  We will also require one parameter.  That parameter will be the username of the person joining.<br>
+						<img src='posts/pics/post1/6.png'></img>
+						<br><br>
+						Within this 'join' callback, we are going to add the username to the users[] array.  We are also going to add 2 more callback functions caleld 'display' and 'leave'.<br>
+						<img src='posts/pics/post1/7.png'></img>
+						<br><br>
+						'display' is going to be a callback that just takes a message as a parameter and then sends that message to all users.  'leave' is a callback that is going to remove the user from the list of online users when they leave the chat room.  For now, that will conclude our server.js file.
+						<br><br>
+						<h2>Client.js</h2>
+						<br>
+						First we are going to create a username variable and a function called join() which will fire after the user selects a username.  As our page doesn't actually redirect, we must then use jquery to change what is being displayed.
+						<img src='posts/pics/post1/8.png'></img>
+						<br><br>
+						Next, we need to connect the client socket to the server socket.  We use the io.connect() function for that.  I should add that for this to work, we must add \< script src='/socket.io/socket.io.js'></script> into our html file.  I'm not sure how exactly that works, but it does...
+						<br><br>
+						Now we need to start making some client events that will fire the serverside events.  The first is going to be 'connect'.  This is actually a bilt in socket.io event.  The actions we put in here will occur upon joining the chat room.  First we are going to call that 'join' function from the server and pass our username so it can be added to the 'online' list.  We are then going to call the 'display' function and pass a message indicating that we joined the chat room.  This will display to all users
+						<img src='posts/pics/post1/9.png'></img>
+						<br><br>
+						We are also going to add 3 more events.  First we will add the 'message' event.  This is also a socket.io event.  This automatically displays messages, and this is what receives any '.send()' callbacks from teh server.  WE are going to add that message to a div and then include the older messages, too.  I'm also adding an 'update' event which will update the online list of users to the client.  We are also creating a 'disconnect' event.  In the event of a user disconnect, we will have a few things happen.  Finally, we use some jQuery to handle sending a message and then invoke the server 'display' callback (which in turn fires the 'message' event client-side).
+						<img src='posts/pics/post1/10.png' style='width: 950px;'></img>
+						<br><br>
+						That's it for the join() function.  We are also going to add a leave() function.  Ideally the 'disconnect' event should do what this leave() function does; however, I had trouble sometimes firing the disconnect event.  Anyway, anybody who knows why that doesnt work let me know.  The leave function will look like this.
+						<img src='posts/pics/post1/11.png'></img>
+						<br><br>
+						Lastly, we just need to add a few lines of code to our server file.  We are going to add calls to the 'update' client event in 2 places.
+						<img src='posts/pics/post1/12.png'></img><br>
+						<img src='posts/pics/post1/13.png'></img>
+						<br><br>
+						And that's it.  Our application should be working.
+						<img src='posts/pics/post1/14.png'></img>
+					</div>
+					<div class='makecomment'>
+						<hr><br>
+						<form method="post" action="process.php">
+							<label for='poster-name'>Name: </label><input name='poster-name' id='poster-name' type='text' /><br><br>
+							<textarea id='poster-post' name='poster-post'></textarea><br><br>
+							<input type='submit' name='postme' class='postButt' value='Comment' />
+						</form>
+					</div>
+				</div>
+				<div class='comments'>
+					<h1><?echo $name;?></h1>
+					<h2><?echo $date;?></h2>
+					<p><?echo $post;?></p>
+				</div>
+			</section>
+		</content>
+		<div class='clearme'></div>
+	</div>
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-30763817-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</body>
+</html>
